@@ -1,2 +1,4 @@
 openai-whisper
 streamlit
+pyttsx3
+transformers
