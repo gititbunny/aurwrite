@@ -1,0 +1,1 @@
+Rewrite the text as a concise news article. Use an objective tone, clear lede, quotes if present, and short paragraphs. Preserve facts and sequence. Keep it under 200 words if possible.
