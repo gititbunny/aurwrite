@@ -131,9 +131,9 @@ if active_view == "Create":
 
     # Upload
     with st.container(border=True):
-        st.subheader("🎧 Upload")
+        st.subheader("🎧 Upload Audio")
         uploaded = st.file_uploader("MP3 or WAV (<= 200MB)", type=["mp3", "wav"])
-        style = st.selectbox("✨ Choose a storytelling style", list(STYLE_FILES.keys()))
+        style = st.selectbox("Choose a storytelling style", list(STYLE_FILES.keys()))
 
         if uploaded:
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -141,7 +141,7 @@ if active_view == "Create":
             audio_path = save_bytes(uploaded.read(), UPLOAD_DIR, f"{ts}_{safe_name}")
             st.audio(audio_path)
 
-            if st.button("🌀 Remix My Story", type="primary"):
+            if st.button("Remix My Story", type="primary"):
                 with st.status("Transcribing with Whisper…", expanded=True):
                     result = whisper_model.transcribe(audio_path)
                     transcript = result.get("text", "").strip()
