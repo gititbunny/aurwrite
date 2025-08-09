@@ -2,13 +2,12 @@ import os
 import io
 import base64
 from datetime import datetime
-
 import streamlit as st
 import whisper
-from transformers import pipeline
+from transformers.pipelines import pipeline
 import pyttsx3
 
-# Paths 
+# Paths
 BASE_DIR = os.path.dirname(__file__)
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 TRANSCRIPT_DIR = os.path.join(BASE_DIR, "outputs", "transcripts")
