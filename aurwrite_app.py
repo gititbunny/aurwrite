@@ -231,7 +231,7 @@ if active_view == "Create":
                 st.audio(wav_bytes, format="audio/wav")
                 dl_button("⬇️ Download narration (WAV)", wav_bytes, f"{ts}_{style.lower().replace(' ','_')}.wav", "audio/wav")
 
-                st.success("Done! You can tweak style or upload another audio.")
+                st.success("Done! You can tweak the style or upload another audio.")
 
 elif active_view == "How it works":
     st.subheader("⚙️ Pipeline")
