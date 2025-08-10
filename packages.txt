@@ -1,0 +1,4 @@
+ffmpeg
+espeak-ng
+libespeak1
+libasound2
