@@ -229,10 +229,11 @@ st.markdown(
         margin-top: 24px;
         padding: 12px 0;
         opacity: .8;
-        font-size: 14px;color: white;
+        font-size: 14px;
+        color: white;
       }}
       .weathif-footer a {{
-        color: #EB8316;
+        color: #1C3AFF;
         text-decoration: none;
       }}
     </style>
