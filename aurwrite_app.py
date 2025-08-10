@@ -25,10 +25,16 @@ st.set_page_config(
     layout="wide"
 )
 
+# Dependency check
 import shutil
 if shutil.which("ffmpeg") is None:
     st.error("FFmpeg not found. Please ensure it's installed.")
     st.stop()
+
+# Warn if no TTS engine is available
+if not (shutil.which("espeak-ng") or shutil.which("espeak")):
+    st.warning("Text-to-speech may fail: espeak-ng not found on this system.")
+
 
 # Custom styles 
 HAND_FONT = "Shadows Into Light"
@@ -90,23 +96,55 @@ def save_bytes(file_bytes: bytes, folder: str, filename: str) -> str:
         f.write(file_bytes)
     return path
 
+import subprocess, shutil, tempfile
+
 def tts_to_bytes(text: str) -> bytes:
-    """Generate WAV bytes with pyttsx3 (offline)."""
+    """Generate WAV bytes. Prefer espeak-ng on Linux; fallback to pyttsx3."""
+    tmp_wav = os.path.join(AUDIO_OUT_DIR, "tmp_tts.wav")
+    os.makedirs(AUDIO_OUT_DIR, exist_ok=True)
+
+    # 1) Use espeak-ng if available (Linux/Streamlit Cloud)
+    if shutil.which("espeak-ng"):
+        with tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8") as tf:
+            tf.write(text)
+            tmp_txt = tf.name
+        try:
+            subprocess.run(
+                ["espeak-ng", "-v", "en-us", "-s", "150", "-w", tmp_wav, "-f", tmp_txt],
+                check=True,
+            )
+            with open(tmp_wav, "rb") as f:
+                data = f.read()
+            return data
+        finally:
+            try:
+                os.remove(tmp_txt)
+            except Exception:
+                pass
+            try:
+                os.remove(tmp_wav)
+            except Exception:
+                pass
+
+    # 2) Fallback to pyttsx3 (works on Windows/macOS)
+    import pyttsx3
     engine = pyttsx3.init()
-    # Dark/fantasy narration—slower pace
     rate = engine.getProperty("rate")
     engine.setProperty("rate", max(120, rate - 40))
-    buf = io.BytesIO()
-    tmp_path = os.path.join(AUDIO_OUT_DIR, "tmp_tts.wav")
-    engine.save_to_file(text, tmp_path)
+    engine.save_to_file(text, tmp_wav)
     engine.runAndWait()
-    with open(tmp_path, "rb") as f:
+
+    if not os.path.exists(tmp_wav):
+        raise RuntimeError("TTS failed. On Linux, install and use espeak-ng.")
+
+    with open(tmp_wav, "rb") as f:
         data = f.read()
     try:
-        os.remove(tmp_path)
+        os.remove(tmp_wav)
     except Exception:
         pass
     return data
+
 
 def dl_button(label: str, data: bytes, file_name: str, mime: str):
     b64 = base64.b64encode(data).decode()
