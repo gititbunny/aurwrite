@@ -20,7 +20,7 @@ for p in [UPLOAD_DIR, TRANSCRIPT_DIR, AUDIO_OUT_DIR]:
 
 # Page config 
 st.set_page_config(
-    page_title="Aurwrite — Audio to Story Creator",
+    page_title="Aurwrite: Audio to Story Creator",
     page_icon=os.path.join(ASSETS_DIR, "icon.png"),
     layout="wide"
 )
@@ -218,11 +218,29 @@ else:  # About
     )
 
 # Footer
+from datetime import datetime
+year = datetime.now().year
+
 st.markdown(
     f"""
-    <div class="footer" style="text-align:center; margin-top:2rem; opacity:.8;">
-      Built by <a href="https://www.linkedin.com/in/ninankhwashu/" target="_blank">Nina Nkhwashu</a>.
+    <style>
+      .weathif-footer {{
+        text-align: center;
+        margin-top: 24px;
+        padding: 12px 0;
+        opacity: .8;
+        font-size: 14px;color: white;
+      }}
+      .weathif-footer a {{
+        color: #EB8316;
+        text-decoration: none;
+      }}
+    </style>
+    <div class="weathif-footer">
+      © {year} All rights reserved. Built by
+      <a href="https://www.linkedin.com/in/ninankhwashu/" target="_blank" rel="noopener">Nina Nkhwashu</a>.
     </div>
     """,
     unsafe_allow_html=True
 )
+
