@@ -20,7 +20,7 @@ for p in [UPLOAD_DIR, TRANSCRIPT_DIR, AUDIO_OUT_DIR]:
 
 # Page config 
 st.set_page_config(
-    page_title="Aurwrite: Audio to Story Creator",
+    page_title="Audio to Story Creator",
     page_icon=os.path.join(ASSETS_DIR, "icon.png"),
     layout="wide"
 )
@@ -126,7 +126,7 @@ if active_view == "Create":
     with col_logo:
         st.image(os.path.join(ASSETS_DIR, "logo.png"), width=80)
     with col_title:
-        st.markdown("<div class='aur-title'>Aurwrite — Audio to Story Remix</div>", unsafe_allow_html=True)
+        st.markdown("<div class='aur-title'>Aurwrite: Audio to Story Creator</div>", unsafe_allow_html=True)
         st.caption("Upload a voice note → Transcribe with Whisper → Rewrite in a style → Hear it narrated")
 
     # Upload
