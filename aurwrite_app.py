@@ -25,6 +25,11 @@ st.set_page_config(
     layout="wide"
 )
 
+import shutil
+if shutil.which("ffmpeg") is None:
+    st.error("FFmpeg not found. Please ensure it's installed.")
+    st.stop()
+
 # Custom styles 
 HAND_FONT = "Shadows Into Light"
 st.markdown(
