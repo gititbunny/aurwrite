@@ -20,7 +20,7 @@ for p in [UPLOAD_DIR, TRANSCRIPT_DIR, AUDIO_OUT_DIR]:
 
 # Page config 
 st.set_page_config(
-    page_title="Audio to Story Creator",
+    page_title="Aurwrite: Audio to Story Creator",
     page_icon=os.path.join(ASSETS_DIR, "icon.png"),
     layout="wide"
 )
@@ -141,7 +141,7 @@ if active_view == "Create":
             audio_path = save_bytes(uploaded.read(), UPLOAD_DIR, f"{ts}_{safe_name}")
             st.audio(audio_path)
 
-            if st.button("Remix My Story", type="primary"):
+            if st.button("📝 Create Story", type="primary"):
                 with st.status("Transcribing with Whisper…", expanded=True):
                     result = whisper_model.transcribe(audio_path)
                     transcript = result.get("text", "").strip()
