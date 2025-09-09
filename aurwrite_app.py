@@ -62,9 +62,9 @@ with st.sidebar:
         "Go to",
         ["Create", "How it works", "About"],
         captions=[
-            "Upload → Transcribe → Remix → Narrate",
-            "Pipeline & local tools",
-            "Aurwrite credits"
+            "Let the magic happen...",
+            "More Information",
+            "Developer Information"
         ]
     )
     st.markdown("---")
@@ -234,14 +234,10 @@ if active_view == "Create":
                 st.success("Done! You can tweak the style or upload another audio.")
 
 elif active_view == "How it works":
-    st.subheader("⚙️ Pipeline")
+    st.subheader("Pipeline")
     st.markdown(
         """
-        **1) Upload** an MP3/WAV → **2) Whisper** (local CPU) → **3) Style rewrite** (GPT‑2 on CPU) → **4) TTS** (offline pyttsx3).
-        
-        - No paid APIs.  
-        - FFmpeg is required for Whisper.  
-        - GPT‑2 is tiny; it runs on CPU and avoids SentencePiece.
+        Aurwrite is a fantasy-themed, dark-mode storytelling app built with Streamlit. Users upload a short audio file (like a voice note), which is transcribed with Whisper, rewritten in one of four styles: Fairy Tale, News Article, Stand-Up Comedy, or Horror, using a local LLM, and then narrated back using free TTS libraries (pyttsx3 or edge-tts). Features include a handwritten font style, fantasy-inspired dark UI, sidebar navigation, and live playback.
         """
     )
 
