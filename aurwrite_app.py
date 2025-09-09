@@ -175,7 +175,7 @@ if active_view == "Create":
     # Upload
     with st.container(border=True):
         st.subheader("🎧 Upload Audio")
-        uploaded = st.file_uploader("MP3 or WAV (<= 200MB)", type=["mp3", "wav"])
+        uploaded = st.file_uploader("MP3 or WAV (200MB or less)", type=["mp3", "wav"])
         style = st.selectbox("Choose a storytelling style", list(STYLE_FILES.keys()))
 
         if uploaded:
@@ -249,14 +249,8 @@ else:  # About
     st.subheader("About Aurwrite")
     st.markdown(
         """
-        A dark‑fantasy flavored, zero‑cost demo of an end‑to‑end audio → story pipeline.
-        Built with ❤️ using local tools.
-
-        **Credits**  
-        • Whisper (OpenAI)  
-        • Transformers (Hugging Face)  
-        • Streamlit  
-        • pyttsx3 (offline TTS)  
+        An AI-powered 'Audio-to-Story' creator tool that transforms voice notes into narrated stories in multiple styles.
+        Built with ❤️ by Nina Nkhwashu.
         """
     )
 
