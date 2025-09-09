@@ -212,7 +212,7 @@ if active_view == "Create":
                 # Display
                 left, right = st.columns(2)
                 with left:
-                    st.subheader("📝 Transcript")
+                    st.subheader("Transcript")
                     st.text_area("Raw transcript", transcript, height=300)
                 with right:
                     st.subheader(f"🎭 {style}")
@@ -222,7 +222,7 @@ if active_view == "Create":
                 with st.spinner("Generating narration…"):
                     wav_bytes = tts_to_bytes(styled)
                 st.audio(wav_bytes, format="audio/wav")
-                dl_button("⬇️ Download narration (WAV)", wav_bytes, f"{ts}_{style.lower().replace(' ','_')}.wav", "audio/wav")
+                dl_button("Download narration (WAV)", wav_bytes, f"{ts}_{style.lower().replace(' ','_')}.wav", "audio/wav")
 
                 st.success("Done! You can tweak the style or upload another audio.")
 
