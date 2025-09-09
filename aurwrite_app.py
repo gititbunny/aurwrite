@@ -164,7 +164,7 @@ if active_view == "Create":
         st.image(os.path.join(ASSETS_DIR, "logo.png"), width=80)
     with col_title:
         st.markdown("<div class='aur-title'>Aurwrite: Audio to Story Creator</div>", unsafe_allow_html=True)
-        st.caption("Upload a voice note → Transcribe with Whisper → Rewrite in a style → Hear it narrated")
+        st.caption("Upload a voice note or audio and turn it into story")
 
     # Upload
     with st.container(border=True):
