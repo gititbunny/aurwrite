@@ -31,7 +31,7 @@ if shutil.which("ffmpeg") is None:
     st.error("FFmpeg not found. Please ensure it's installed.")
     st.stop()
 
-# Warn if no TTS engine is available
+# Unavailable TTS engine warning
 if not (shutil.which("espeak-ng") or shutil.which("espeak")):
     st.warning("Text-to-speech may fail: espeak-ng not found on this system.")
 
@@ -54,7 +54,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Sidebar (tabbed feel)
+# Sidebar
 with st.sidebar:
     st.image(os.path.join(ASSETS_DIR, "logo.png"), use_container_width=True)
     st.markdown("### Navigation")
@@ -76,13 +76,10 @@ with st.sidebar:
 # Cached models
 @st.cache_resource(show_spinner=True)
 def load_whisper():
-    # small/base are okay on CPU; tiny is fastest
     return whisper.load_model("base")
 
 @st.cache_resource(show_spinner=True)
 def load_rewriter():
-    # Use a lightweight, no-SentencePiece model.
-    # GPT-2 isn't an instruction model, but works for fun style prompts.
     return pipeline("text-generation", model="gpt2", device=-1)
 
 whisper_model = load_whisper()
@@ -99,11 +96,9 @@ def save_bytes(file_bytes: bytes, folder: str, filename: str) -> str:
 import subprocess, shutil, tempfile
 
 def tts_to_bytes(text: str) -> bytes:
-    """Generate WAV bytes. Prefer espeak-ng on Linux; fallback to pyttsx3."""
     tmp_wav = os.path.join(AUDIO_OUT_DIR, "tmp_tts.wav")
     os.makedirs(AUDIO_OUT_DIR, exist_ok=True)
 
-    # 1) Use espeak-ng if available (Linux/Streamlit Cloud)
     if shutil.which("espeak-ng"):
         with tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8") as tf:
             tf.write(text)
@@ -126,7 +121,6 @@ def tts_to_bytes(text: str) -> bytes:
             except Exception:
                 pass
 
-    # 2) Fallback to pyttsx3 (works on Windows/macOS)
     import pyttsx3
     engine = pyttsx3.init()
     rate = engine.getProperty("rate")
@@ -202,7 +196,6 @@ if active_view == "Create":
                 # Style rewrite
                 with st.status(f"Rewriting as **{style}**…", expanded=True):
                     prompt = load_style_prompt(style)
-                    # Build a generator prompt for GPT‑2
                     seed_prompt = f"{prompt}\n\nOriginal:\n{transcript}\n\nRewrite:\n"
                     out = rewrite_pipe(
                         seed_prompt,
