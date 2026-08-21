@@ -239,7 +239,7 @@ else:  # About
     st.markdown(
         """
         An AI-powered 'Audio-to-Story' creator tool that transforms voice notes into narrated stories in multiple styles.
-        Built with ❤️ by Nina Nkhwashu.
+        Built with ❤️ by Git It Bunny.
         """
     )
 
